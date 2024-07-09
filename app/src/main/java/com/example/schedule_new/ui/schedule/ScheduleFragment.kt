@@ -28,6 +28,7 @@ class ScheduleFragment : Fragment(),AdapterView.OnItemSelectedListener {
     private val dayAdapterForSchedule = DayAdapter()
     private var dayListForSchedule = DataManager.nonExamWeekObjectFromJsonString(0).days
 
+    private var isFirstSelection = true // Флаг для отслеживания первого выбора в спиннере
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,45 +43,52 @@ class ScheduleFragment : Fragment(),AdapterView.OnItemSelectedListener {
 
         val spinner: Spinner = binding.spinnerView
         // Create an ArrayAdapter using the string array and a default spinner layout.
-        ArrayAdapter(this.requireContext(), android.R.layout.simple_list_item_1,DataManager.listOfWeek(5)).also { adapter ->
+        ArrayAdapter(
+            this.requireContext(),
+            R.layout.custom_list_item,
+            DataManager.listOfWeek(5)
+        ).also { adapter ->
             // Specify the layout to use when the list of choices appears.
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item)
             // Apply the adapter to the spinner.
             spinner.adapter = adapter
             spinner.onItemSelectedListener = this
         }
 
-
         val textView: TextView = binding.textSchedule
         scheduleViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-            initSchedule()
+        initSchedule()
         }
         return root
     }
 
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // Первый раз выбор сделан
+        if (isFirstSelection) {
+            isFirstSelection = false
+            return // Ничего не делать, пока пользователь не выберет что-то в спиннере
+        }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        // Выводить Toast только после первого выбора
+        Toast.makeText(this.context, "Selected week:" + (pos+1).toString(), Toast.LENGTH_SHORT).show()
+
+        // Обновление данных расписания
+        _binding?.apply {
+            dayListForSchedule = DataManager.nonExamWeekObjectFromJsonString(pos).days
+            initSchedule()
+        }
     }
-    private fun initSchedule(){
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        // Обработка, если ничего не выбрано, можно оставить пустым
+    }
+
+    private fun initSchedule() {
         _binding?.apply {
             rcViewShedule.layoutManager = LinearLayoutManager(this@ScheduleFragment.context)
             rcViewShedule.adapter = dayAdapterForSchedule
             dayAdapterForSchedule.newDaysFromWeek(dayListForSchedule)
         }
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        Toast.makeText(this.context, pos.toString(), Toast.LENGTH_SHORT).show()
-        _binding?.apply {
-            dayListForSchedule = DataManager.nonExamWeekObjectFromJsonString(pos).days
-            dayAdapterForSchedule.newDaysFromWeek(dayListForSchedule)
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 }
