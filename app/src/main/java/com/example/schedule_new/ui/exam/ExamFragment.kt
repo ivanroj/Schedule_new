@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +21,7 @@ class ExamFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val dayAdapterForExams = DayAdapter()
-    private var dayListForExams = DataManager.examsFromJsonString().days
+    private var dayListForExams = DataManager.examsFromJsonString(0).days
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +35,7 @@ class ExamFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.textExam
+
         examViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
             initExam()
