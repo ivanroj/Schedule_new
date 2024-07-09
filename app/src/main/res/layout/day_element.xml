@@ -3,32 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
+    <!-- Day name -->
     <TextView
         android:id="@+id/dayName"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="2dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:background="#93FA03"
+        android:padding="8dp"
+        android:text="Day Name"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- RecyclerView for lesson list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcLessonList"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="2dp"
+        android:layout_height="wrap_content"
         android:background="#E33535"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dayName" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
