@@ -6,4 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="52dp"
     android:ellipsize="marquee"
-    android:singleLine="true" />
+    android:singleLine="true"
+    android:padding="16dp"
+    android:textColor="@color/black"
+    android:background="?attr/selectableItemBackground" />
