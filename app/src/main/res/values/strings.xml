@@ -3,4 +3,6 @@
     <string name="title_exam">exam</string>
     <string name="title_schedule">schedule</string>
     <string name="title_settings">settings</string>
+    <string name="mai_website">Иконка сайта МАИ</string>
+    <string name="go_to_mai_website">Перейти на сайт МАИ</string>
 </resources>
