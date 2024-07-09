@@ -21,6 +21,7 @@ class DayAdapter : RecyclerView.Adapter<DayAdapter.DayHolder>() {
 
             dayName.text = day.name
 
+
             rcLessonList.layoutManager = LinearLayoutManager(rcLessonList.context)
             rcLessonList.adapter = lessonAdapter
             lessonAdapter.newLessonsFromDay(day.lessons)

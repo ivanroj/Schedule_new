@@ -9,4 +9,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#0093D9</color>
     <color name="gray">#E0DFDF</color>
+    <color name="primary_orange">#FF9800</color>
+    <color name="primary_blue">#2196F3</color>
+    <color name="primary_white">#FFFFFF</color>
+    <color name="text_black">#212121</color>
+    <color name="background_grey">#F5F5F5</color>
+    <color name="background_light_blue">#E3F2FD</color>
+    <color name="background_light_orange">#FFF3E0</color>
+    <color name="primary_green">#4CAF50</color>
+    <color name="background_light_green">#E8F5E9</color>
+
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rounded_background"
     android:padding="8dp">
 
     <!-- Day name -->
@@ -12,22 +13,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="#93FA03"
-        android:padding="8dp"
+        android:background="@drawable/rounded_background_blue"
+        android:padding="12dp"
         android:text="Day Name"
-        android:textColor="@android:color/black"
+        android:textColor="@color/primary_white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center" />
 
     <!-- RecyclerView for lesson list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcLessonList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#E33535"
+        android:background="@color/background_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

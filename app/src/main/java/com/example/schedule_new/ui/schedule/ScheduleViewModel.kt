@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class ScheduleViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "Schedule fragment"
+        value = ""
     }
     val text: LiveData<String> = _text
 }

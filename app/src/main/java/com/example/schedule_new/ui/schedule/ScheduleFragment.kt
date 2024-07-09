@@ -45,10 +45,10 @@ class ScheduleFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner.onItemSelectedListener = this
         }
 
-        val textView: TextView = binding.textSchedule
-        scheduleViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textSchedule
+//        scheduleViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         initSchedule()
 
         return root
@@ -60,7 +60,7 @@ class ScheduleFragment : Fragment(), AdapterView.OnItemSelectedListener {
             return
         }
 
-        Toast.makeText(this.context, "Selected week: ${(pos + 1)}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.context, "Неделя: ${(pos + 1)}", Toast.LENGTH_SHORT).show()
         _binding?.apply {
             dayListForSchedule = DataManager.nonExamWeekObjectFromJsonString(pos).days
             initSchedule()
