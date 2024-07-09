@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation("com.google.code.gson:gson:2.7")
+    implementation(libs.gson)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
