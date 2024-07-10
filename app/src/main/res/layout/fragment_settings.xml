@@ -7,7 +7,6 @@
     tools:context=".ui.settings.SettingsFragment">
 
     <LinearLayout
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -17,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            card_view:cardCornerRadius="8dp"
-            card_view:cardElevation="4dp">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
             <Switch
                 android:id="@+id/switch_theme"
@@ -33,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            card_view:cardCornerRadius="8dp"
-            card_view:cardElevation="4dp">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:id="@+id/button_mai_site"
@@ -66,5 +65,26 @@
                     android:contentDescription="@string/go_to_mai_website" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/currentGroup"
+                android:layout_width="294dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/buttonReplaceGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Изменить" />
+
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

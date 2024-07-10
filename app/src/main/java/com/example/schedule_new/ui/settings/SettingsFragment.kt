@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.example.schedule_new.MainActivity
+import com.example.schedule_new.StartActivity
+import com.example.schedule_new.data.DataManager
 import com.example.schedule_new.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
-
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
@@ -23,11 +25,13 @@ class SettingsFragment : Fragment() {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        val currentGroupText = binding.currentGroup
         val currentNightMode = resources.configuration.uiMode and
                 android.content.res.Configuration.UI_MODE_NIGHT_MASK
-        binding.switchTheme.isChecked = currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
 
+        currentGroupText.setText(DataManager.groupNumber) // установка номера группы в окно
+
+        binding.switchTheme.isChecked = currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -35,11 +39,20 @@ class SettingsFragment : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
-
         binding.buttonMaiSite.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse("https://mai.ru/")
             startActivity(intent)
+        }
+        binding.buttonReplaceGroup.setOnClickListener { // замена группы c сохранением
+            val group = currentGroupText.text.toString()
+            if(isItGroup(group)){
+                replaceGroup(group)
+                DataManager.groupNumber = group
+            }else{
+                currentGroupText.setText("Неверная группа")
+            }
+
         }
 
         return root
@@ -48,5 +61,13 @@ class SettingsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    fun replaceGroup(group:String){
+        activity.let {(it as MainActivity).saveData(group)}
+    }
+    fun isItGroup(group:String) : Boolean{
+        val patternRegexGroup = """[Мм][1-9иИсС][01234]?О-\d\d\d[А-Яа-я]-2\d"""
+        val regex = Regex(patternRegexGroup)
+        return regex.matches(group.trim())
     }
 }
