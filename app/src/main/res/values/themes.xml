@@ -14,5 +14,8 @@
         <!-- Light status bar (black text/icons). -->
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+        <!-- Параметры для светлой темы -->
+        <item name="backgroundGradient">@drawable/background_gradient_light</item>
+
     </style>
 </resources>
