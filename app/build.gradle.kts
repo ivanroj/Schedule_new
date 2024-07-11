@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation ("com.android.volley:volley:1.2.1")
     implementation(libs.gson)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.core.ktx)

@@ -1,6 +1,7 @@
 package com.example.schedule_new.ui.schedule
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.schedule_new.R
 import com.example.schedule_new.data.DataManager
+import com.example.schedule_new.data.Day
 import com.example.schedule_new.data.DayAdapter
 import com.example.schedule_new.databinding.FragmentScheduleBinding
 
@@ -22,7 +27,8 @@ class ScheduleFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var _binding: FragmentScheduleBinding? = null
     private val binding get() = _binding!!
     private val dayAdapterForSchedule = DayAdapter()
-    private var dayListForSchedule = DataManager.nonExamWeekObjectFromJsonString(0).days
+    lateinit var dayListForSchedule : List<Day>
+
     private var isFirstSelection = true
 
     override fun onCreateView(
@@ -33,6 +39,10 @@ class ScheduleFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val scheduleViewModel = ViewModelProvider(this).get(ScheduleViewModel::class.java)
         _binding = FragmentScheduleBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        requestWeekData(DataManager.groupNumber,3)
+
+
 
         val spinner: Spinner = binding.spinnerView
         ArrayAdapter(
@@ -49,8 +59,8 @@ class ScheduleFragment : Fragment(), AdapterView.OnItemSelectedListener {
 //        scheduleViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
-        initSchedule()
 
+        //initSchedule()
         return root
     }
 
@@ -62,8 +72,7 @@ class ScheduleFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         Toast.makeText(this.context, "Неделя: ${(pos + 1)}", Toast.LENGTH_SHORT).show()
         _binding?.apply {
-            dayListForSchedule = DataManager.nonExamWeekObjectFromJsonString(pos).days
-            initSchedule()
+            requestWeekData(DataManager.groupNumber,pos)
         }
     }
 
@@ -80,5 +89,28 @@ class ScheduleFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    fun requestWeekData(group : String, weekNumber : Int){
+        val url = "http://87.228.8.86/" +
+                  group +
+                  "/" + weekNumber.toString()
+        val queue = Volley.newRequestQueue(context)
+        val request = StringRequest(
+            Request.Method.GET,
+            url,
+            {
+                result->writeJson(result.toString()) //не срабатывает
+            },
+            {
+                error-> Log.d("Mylog", "Error $error")
+            }
+        )
+        queue.add(request)
+    }
+    fun writeJson(result: String){
+        val jsonResult = result.substring(1)
+        Log.d("Mylog",jsonResult.substring(jsonResult.indexOf("{"),jsonResult.length-1))
+        dayListForSchedule = DataManager.nonExamWeekObjectFromJsonString(jsonResult.substring(jsonResult.indexOf("{"),jsonResult.length-1)).days
+        initSchedule()
     }
 }
